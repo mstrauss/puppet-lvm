@@ -1,4 +1,8 @@
-class lvm{
+class lvm( $diskvolumes = {} ) {
+  
+  #################
+  ### old stuff ###
+  #################
   
   # deprecated: please use lvm::diskvolume instead
   class simplevolume( $name, $device, $mountpoint, $fs = 'ext3', $group = 'data' ) {
@@ -14,6 +18,9 @@ class lvm{
     }
   }
   
+  ###################
+  ### Definitions ###
+  ###################
   # title => device name, like '/dev/sdb'
   define device() {
     exec { "pvcreate-${name}":
@@ -96,4 +103,8 @@ class lvm{
     
   }
   
+  ###################
+  ### Other stuff ###
+  ###################
+  create_resources( 'lvm::diskvolume', $diskvolumes )
 }
